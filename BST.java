@@ -129,13 +129,9 @@ class BST
 				}
 				curr.data=nextRoot.data;
 
-				System.out.println(curr.data+" current node");
-
 				return data+" deleted successfully.";
 			}
 		}
-
-		return "";
 	}
 
 	public static void main(String arg[])
