@@ -15,6 +15,28 @@ class BST
 		}
 	}
 
+	/*
+	Initial Struture of BST
+				50
+			   /  \
+			  25   60
+		     /    /  \
+		    20   55  70
+		    	/  \
+		       52  57
+	*/
+
+	BST(){
+		add(50);
+		add(25);
+		add(20);
+		add(60);
+		add(55);
+		add(57);
+		add(52);
+		add(70);
+	}
+
 	//Add element in root.
 	public void add(int data){
 		Node newNode=new Node(data);
@@ -134,17 +156,18 @@ class BST
 		}
 	}
 
+	// Calculate Height of BST using recursive method.
+	int calculateHeight(BST.Node root){
+		if(root==null){
+			return 0;
+		}
+
+		return 1 + Math.max(calculateHeight(root.left), calculateHeight(root.right));
+	}
+
 	public static void main(String arg[])
 	{
 		BST bst=new BST();
-		// bst.add(50);
-		// bst.add(60);
-		// bst.add(300);
-		// bst.add(900);
-		// bst.add(55);
-		// bst.add(57);
-		// bst.add(25);
-		// bst.add(20);
 		Scanner sc=new Scanner(System.in);
 
 		while(true){
@@ -153,7 +176,8 @@ class BST
 			System.out.println("3. Inorder traversal");
 			System.out.println("4. Preorder traversal");
 			System.out.println("5. Postorder traversal");
-			System.out.println("6. Exit");
+			System.out.println("6. Height of BST");
+			System.out.println("7. Exit");
 			System.out.print("\nEnter your choice : ");
 			int choice = sc.nextInt();
 
@@ -168,7 +192,7 @@ class BST
 					break;
 				case 3: 
 					if(bst.root==null)
-						System.out.println("\nBST is empty.");
+						System.out.print("\nBST is empty.");
 					else{
 						System.out.println("\nInorder :");
 						bst.inorder(bst.root);
@@ -176,7 +200,7 @@ class BST
 					break;
 				case 4:
 					if(bst.root==null)
-						System.out.println("\nBST is empty.");
+						System.out.print("\nBST is empty.");
 					else{
 						System.out.println("\nPreorder :");
 						bst.preorder(bst.root);
@@ -184,18 +208,21 @@ class BST
 					break;
 				case 5: 
 					if(bst.root==null)
-						System.out.println("\nBST is empty.");
+						System.out.print("\nBST is empty.");
 					else{
 						System.out.println("\nPostorder :");
 						bst.postorder(bst.root);
 					}
 					break;
 				case 6:
+					System.out.print("\nHeight of BST : "+bst.calculateHeight(bst.root));
+					break;
+				case 7:
 					System.exit(0);
 				default : 
 					System.out.println("\nYou enter wrong choice.");
 			}
-			System.out.print("\n"+bst.root.data+"\n");
+			System.out.println("\n");
 		}
 	}
 }
