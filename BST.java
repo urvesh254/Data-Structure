@@ -157,7 +157,7 @@ class BST
 	}
 
 	// Calculate Height of BST using recursive method.
-	int calculateHeight(BST.Node root){
+	public int calculateHeight(BST.Node root){
 		if(root==null){
 			return 0;
 		}
