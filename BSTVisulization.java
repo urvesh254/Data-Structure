@@ -70,9 +70,7 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 			g2.drawLine(pts.x1+7, pts.y1+30, pts.x2+3, pts.y2+10);
 			curr=curr.right;
 		}
-	
-      	// lines(root);
-      	// g2.drawLine(x1+7, y1+30, x2+3, y2+10);
+
      	// x1 = label.getX()+7
      	// y1 = label.getY()+30
 	}
@@ -80,22 +78,12 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 	public BSTVisulization(){
 		setLayout(null); // layout
 		setTitle("Binary Search Tree Visulization"); //Title Frame
-		// setResizable(false);
+		setResizable(false);
 		setSize(1200, 700); 		//frame size
 		setLocationRelativeTo(null);
 		setVisible(true); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Rectangle rect=getBounds();
-		X=rect.width/2;
-
-		initialize();
-		add(tf);
-		add(btnAdd);
-		add(btnDelete);
-	}
-
-	private void initialize(){
 		size=getBounds();
 		X=size.width/2;
 
@@ -104,13 +92,14 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 		tf.setFont(new Font("Arial",Font.BOLD,20));
 		tf.setBounds(size.width-300,20,150,30);
 		tf.addKeyListener(this);
-		tf.requestFocusInWindow();
+		add(tf);
 
 		//Add Button
 		btnAdd=new JButton("Add");
 		btnAdd.setFont(new Font("Arial",Font.BOLD,20));
 		btnAdd.setBounds(size.width-130,20,100,30);
 		btnAdd.addActionListener(this);
+		add(btnAdd);
 		
 		//Delete Button
 		btnDelete=new JButton("Delete");
@@ -119,10 +108,9 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 		btnDelete.addActionListener(e->{
 			System.out.println(delete(Integer.parseInt(tf.getText())));
 		});
+		add(btnDelete);
 
-		reArrangeNode(root,root,X);
-		revalidate();
-		repaint();
+		tf.requestFocusInWindow();
 	}
 
 	//Override method.
@@ -136,16 +124,18 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 			inorder(root);
 			System.out.println("\nBST Height : "+calculateHeight(root)+"\n");
 			tf.requestFocusInWindow();
-			}
-			catch(Exception e){
-				JOptionPane.showMessageDialog(null,"Please Enter Integer.");
-			}
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null,"Please Enter Integer.");
+		}
 	}
 
 	public void keyTyped(KeyEvent evt){
-		if(evt.getKeyChar()=='\n'){
+		char c=evt.getKeyChar();
+		if(c=='a' || c=='A'){
 			try{
 				String data=tf.getText();
+				evt.consume();       // Not type 'a' or 'A' character in textfield
 				if(!data.isEmpty()){
 					add(Integer.parseInt(data));
 					tf.setText("");
@@ -157,6 +147,22 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 			catch(Exception e){
 				JOptionPane.showMessageDialog(null,"Please Enter Integer.");
 			}
+		}
+		else if(c=='d' || c=='D'){
+			try{
+				String data=tf.getText();
+				evt.consume();		// Not type 'd' or 'D' character in textfield
+				if(!data.isEmpty()){
+					delete(Integer.parseInt(data));
+					tf.setText("");
+				}
+				inorder(root);
+				System.out.println("\nBST Height : "+calculateHeight(root)+"\n");
+				tf.requestFocusInWindow();
+			}
+			catch(Exception e){
+				JOptionPane.showMessageDialog(null,"Please Enter Integer.");
+			}	
 		}
 	}
   	public void keyPressed(KeyEvent evt){}
@@ -216,7 +222,7 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 	public void inorder(Node root){
 		if(root==null)
 			return;
-		inorder(root.left);
+		inorder(root.left); 
 		System.out.print(root.data.getText()+" ");
 		inorder(root.right);
 	}
@@ -356,6 +362,5 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 		bst.add(100);
 		bst.add(70);
 		bst.add(74);
-
 	}
 }
