@@ -27,14 +27,24 @@ class BST
 	*/
 
 	BST(){
+		// add(50);
+		// add(25);
+		// add(20);
+		// add(60);
+		// add(55);
+		// add(57);
+		// add(52);
+		// add(70);
+		
 		add(50);
 		add(25);
+		add(35);
 		add(20);
-		add(60);
-		add(55);
-		add(57);
-		add(52);
+		add(75);
+		add(100);
 		add(70);
+		add(74);
+
 	}
 
 	//Add element in root.
@@ -67,30 +77,27 @@ class BST
 	}
 
 	//Inorder logic
-	public void inorder(Node root){
+	public String inorder(Node root){
 		if(root==null)
-			return;
-		inorder(root.left);
-		System.out.print(root.data+" ");
-		inorder(root.right);
+			return "";
+
+		return inorder(root.left) + root.data + " " + inorder(root.right);
 	}
 
 	//Preorder logic
-	public void preorder(Node root){
+	public String preorder(Node root){
 		if(root==null)
-			return;
-		System.out.print(root.data+" ");
-		preorder(root.left);
-		preorder(root.right);
+			return "";
+
+		return root.data + " " + preorder(root.left) + preorder(root.right);
 	}
 
 	//Postorder logic
-	public void postorder(Node root){
+	public String postorder(Node root){
 		if(root==null)
-			return;
-		postorder(root.left);
-		postorder(root.right);
-		System.out.print(root.data+" ");
+			return "";
+
+		return postorder(root.left) + postorder(root.right) +  root.data + " " ;
 	}
 
 	// Delete Node from BST
@@ -99,10 +106,8 @@ class BST
 			return "BST is empty.";
 		}else{
 			Node curr=root,pre=root;
-			boolean f=false;
 			while(curr!=null){
 				if(curr.data==data){
-					f=true;
 					break;
 				}else if(curr.data>data){
 					pre=curr;
@@ -113,10 +118,10 @@ class BST
 				}
 			}
 
-			if(!f){ // data is not find.
+			if(curr==null){ // data is not find.
 				return data+" is not available.";
 			}
-			else if(f && curr.left==null || curr.right==null){ // data has 0 or 1 child
+			else if(curr.left==null || curr.right==null){ // data has 0 or 1 child
 				
 				if(curr!=root){
 					Node address = curr.left!=null?curr.left:curr.right;	
@@ -195,7 +200,7 @@ class BST
 						System.out.print("\nBST is empty.");
 					else{
 						System.out.println("\nInorder :");
-						bst.inorder(bst.root);
+						System.out.println(bst.inorder(bst.root));
 					}
 					break;
 				case 4:
@@ -203,7 +208,7 @@ class BST
 						System.out.print("\nBST is empty.");
 					else{
 						System.out.println("\nPreorder :");
-						bst.preorder(bst.root);
+						System.out.println(bst.preorder(bst.root));
 					}
 					break;
 				case 5: 
@@ -211,7 +216,7 @@ class BST
 						System.out.print("\nBST is empty.");
 					else{
 						System.out.println("\nPostorder :");
-						bst.postorder(bst.root);
+						System.out.println(bst.postorder(bst.root));
 					}
 					break;
 				case 6:
