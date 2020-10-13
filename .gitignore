@@ -2,4 +2,5 @@ Sorting/
 Test.java
 BSTConfirmed.java
 *.class
+debug.log
 BinarySearchTree.java
