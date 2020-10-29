@@ -1,17 +1,17 @@
 import java.util.*;
 
-public class BST<T extends Comparable<? super T>>
-{
-	Node root=null;
+public class BST<T extends Comparable<? super T>> {
+	Node root = null;
 
 	//Structure of node.
-	public static class Node{
+	public class Node {
 		T data;
-		Node left,right;
-		Node(T data){
-			this.data=data;
-			left=null;
-			right=null;
+		Node left, right;
+
+		Node(T data) {
+			this.data = data;
+			left = null;
+			right = null;
 		}
 	}
 
@@ -26,8 +26,8 @@ public class BST<T extends Comparable<? super T>>
 		       52  57
 	*/
 
-	BST(){
-		
+	BST() {
+
 		// add(50);
 		// add(25);
 		// add(35);
@@ -40,134 +40,129 @@ public class BST<T extends Comparable<? super T>>
 	}
 
 	//Add element in root.
-	public void add(T data){
-		Node newNode=new Node(data);
-		if(root==null){
-			root=newNode;
-		}
-		else{
-			Node curr=root,pre=root;
-			while(curr!=null){
-				pre=curr;
-				if(curr.data==data){
-					System.out.println(data+" is already exist.");
+	public void add(T data) {
+		Node newNode = new Node(data);
+		if (root == null) {
+			root = newNode;
+		} else {
+			Node curr = root, pre = root;
+			while (curr != null) {
+				pre = curr;
+				if (curr.data == data) {
+					System.out.println(data + " is already exist.");
 					return;
-				}
-				else if(curr.data.compareTo(data)>0){
-					curr=curr.left;
-				}
-				else{
-					curr=curr.right;
+				} else if (curr.data.compareTo(data) > 0) {
+					curr = curr.left;
+				} else {
+					curr = curr.right;
 				}
 			}
-			if(pre.data.compareTo(data)>0)
-				pre.left=newNode;
+			if (pre.data.compareTo(data) > 0)
+				pre.left = newNode;
 			else
-				pre.right=newNode;
+				pre.right = newNode;
 		}
-		System.out.println(data+" added successfully.");
+		System.out.println(data + " added successfully.");
 	}
 
 	//Inorder logic
-	public String inorder(Node root){
-		if(root==null)
+	public String inorder(Node root) {
+		if (root == null)
 			return "";
 
 		return inorder(root.left) + root.data + " " + inorder(root.right);
 	}
 
 	//Preorder logic
-	public String preorder(Node root){
-		if(root==null)
+	public String preorder(Node root) {
+		if (root == null)
 			return "";
 
 		return root.data + " " + preorder(root.left) + preorder(root.right);
 	}
 
 	//Postorder logic
-	public String postorder(Node root){
-		if(root==null)
+	public String postorder(Node root) {
+		if (root == null)
 			return "";
 
-		return postorder(root.left) + postorder(root.right) +  root.data + " " ;
+		return postorder(root.left) + postorder(root.right) + root.data + " ";
 	}
 
 	// Delete Node from BST
-	public String delete(T data){
-		if(root==null){
+	public String delete(T data) {
+		if (root == null) {
 			return "BST is empty.";
-		}else{
-			Node curr=root,pre=root;
-			while(curr!=null){
-				if(curr.data==data){
+		} else {
+			Node curr = root, pre = root;
+			while (curr != null) {
+				if (curr.data == data) {
 					break;
-				}else if(curr.data.compareTo(data)>0){
-					pre=curr;
-					curr=curr.left;
-				}else{
-					pre=curr;
-					curr=curr.right;
+				} else if (curr.data.compareTo(data) > 0) {
+					pre = curr;
+					curr = curr.left;
+				} else {
+					pre = curr;
+					curr = curr.right;
 				}
 			}
 
-			if(curr==null){ // Node is not find.
-				return data+" is not available.";
-			}
-			else if(curr.left==null || curr.right==null){ // data has 0 or 1 child
-				
-				if(curr!=root){
-					Node address = curr.left!=null?curr.left:curr.right;	
-					if(curr.data.compareTo(pre.data)>0){
-						pre.right=address;
-					}else{
-						pre.left=address;
+			if (curr == null) { // Node is not find.
+				return data + " is not available.";
+			} else if (curr.left == null || curr.right == null) { // data has 0 or 1 child
+
+				if (curr != root) {
+					Node address = curr.left != null ? curr.left : curr.right;
+					if (curr.data.compareTo(pre.data) > 0) {
+						pre.right = address;
+					} else {
+						pre.left = address;
 					}
-				}else{
-					if(curr.left!=null){
-						root=curr.left;
-					}else{
-						root=curr.right;
+				} else {
+					if (curr.left != null) {
+						root = curr.left;
+					} else {
+						root = curr.right;
 					}
 				}
-				
-				return data+" deleted successfully.";
 
-			}else{	// Node has 2 child.
+				return data + " deleted successfully.";
 
-				Node nextRoot=null,preRoot=curr;
-				nextRoot=curr.left;
-				while(nextRoot.right!=null){
-					preRoot=nextRoot;
-					nextRoot=nextRoot.right;
+			} else { // Node has 2 child.
+
+				Node nextRoot = null, preRoot = curr;
+				nextRoot = curr.left;
+				while (nextRoot.right != null) {
+					preRoot = nextRoot;
+					nextRoot = nextRoot.right;
 				}
-					
-				if(preRoot!=curr){
-					preRoot.right=nextRoot.left;
-				}else{
-					preRoot.left=nextRoot.left;
-				}
-				curr.data=nextRoot.data;
 
-				return data+" deleted successfully.";
+				if (preRoot != curr) {
+					preRoot.right = nextRoot.left;
+				} else {
+					preRoot.left = nextRoot.left;
+				}
+				curr.data = nextRoot.data;
+
+				return data + " deleted successfully.";
 			}
 		}
 	}
 
 	// Calculate Height of BST using recursive method.
-	public int calculateHeight(Node root){
-		if(root==null){
+	public int calculateHeight(Node root) {
+		if (root == null) {
 			return 0;
 		}
 
 		return 1 + Math.max(calculateHeight(root.left), calculateHeight(root.right));
 	}
 
-	public static void main(String arg[])
-	{
-		BST<Integer> bst=new BST<>();
-		Scanner sc=new Scanner(System.in);
+	public static void main(String arg[]) {
+		BST<Integer> bst = new BST<>();
+		Scanner sc = new Scanner(System.in);
 
-		while(true){
+		while (true) {
 			System.out.println("1. Enter node");
 			System.out.println("2. Delete the node");
 			System.out.println("3. Inorder traversal");
@@ -178,8 +173,8 @@ public class BST<T extends Comparable<? super T>>
 			System.out.print("\nEnter your choice : ");
 			int choice = sc.nextInt();
 
-			switch(choice){
-				case 1: 
+			switch (choice) {
+				case 1:
 					System.out.print("\nData : ");
 					bst.add(sc.nextInt());
 					break;
@@ -187,36 +182,36 @@ public class BST<T extends Comparable<? super T>>
 					System.out.print("\nData : ");
 					System.out.println(bst.delete(sc.nextInt()));
 					break;
-				case 3: 
-					if(bst.root==null)
+				case 3:
+					if (bst.root == null)
 						System.out.print("\nBST is empty.");
-					else{
+					else {
 						System.out.println("\nInorder :");
 						System.out.println(bst.inorder(bst.root));
 					}
 					break;
 				case 4:
-					if(bst.root==null)
+					if (bst.root == null)
 						System.out.print("\nBST is empty.");
-					else{
+					else {
 						System.out.println("\nPreorder :");
 						System.out.println(bst.preorder(bst.root));
 					}
 					break;
-				case 5: 
-					if(bst.root==null)
+				case 5:
+					if (bst.root == null)
 						System.out.print("\nBST is empty.");
-					else{
+					else {
 						System.out.println("\nPostorder :");
 						System.out.println(bst.postorder(bst.root));
 					}
 					break;
 				case 6:
-					System.out.print("\nHeight of BST : "+bst.calculateHeight(bst.root));
+					System.out.print("\nHeight of BST : " + bst.calculateHeight(bst.root));
 					break;
 				case 7:
 					System.exit(0);
-				default : 
+				default:
 					System.out.println("\nYou enter wrong choice.");
 			}
 			System.out.println("\n");
