@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Test<T> {
+public class LinkedList<T> {
 	Node head = null;
 
 	// LinkedList stucture
@@ -130,7 +130,7 @@ public class Test<T> {
 	}
 
 	public static void main(String arg[]) {
-		Test ll = new Test();
+		LinkedList ll = new LinkedList();
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
