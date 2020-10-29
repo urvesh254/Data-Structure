@@ -1,14 +1,14 @@
 import java.util.*;
 
-class BST 
+public class BST<T extends Comparable<? super T>>
 {
 	Node root=null;
 
 	//Structure of node.
-	class Node{
-		int data;
+	public static class Node{
+		T data;
 		Node left,right;
-		Node(int data){
+		Node(T data){
 			this.data=data;
 			left=null;
 			right=null;
@@ -27,28 +27,20 @@ class BST
 	*/
 
 	BST(){
+		
 		// add(50);
 		// add(25);
+		// add(35);
 		// add(20);
-		// add(60);
-		// add(55);
-		// add(57);
-		// add(52);
+		// add(75);
+		// add(100);
 		// add(70);
-		
-		add(50);
-		add(25);
-		add(35);
-		add(20);
-		add(75);
-		add(100);
-		add(70);
-		add(74);
+		// add(74);
 
 	}
 
 	//Add element in root.
-	public void add(int data){
+	public void add(T data){
 		Node newNode=new Node(data);
 		if(root==null){
 			root=newNode;
@@ -61,14 +53,14 @@ class BST
 					System.out.println(data+" is already exist.");
 					return;
 				}
-				else if(curr.data>data){
+				else if(curr.data.compareTo(data)>0){
 					curr=curr.left;
 				}
 				else{
 					curr=curr.right;
 				}
 			}
-			if(pre.data>data)
+			if(pre.data.compareTo(data)>0)
 				pre.left=newNode;
 			else
 				pre.right=newNode;
@@ -101,7 +93,7 @@ class BST
 	}
 
 	// Delete Node from BST
-	public String delete(int data){
+	public String delete(T data){
 		if(root==null){
 			return "BST is empty.";
 		}else{
@@ -109,7 +101,7 @@ class BST
 			while(curr!=null){
 				if(curr.data==data){
 					break;
-				}else if(curr.data>data){
+				}else if(curr.data.compareTo(data)>0){
 					pre=curr;
 					curr=curr.left;
 				}else{
@@ -118,14 +110,14 @@ class BST
 				}
 			}
 
-			if(curr==null){ // data is not find.
+			if(curr==null){ // Node is not find.
 				return data+" is not available.";
 			}
 			else if(curr.left==null || curr.right==null){ // data has 0 or 1 child
 				
 				if(curr!=root){
 					Node address = curr.left!=null?curr.left:curr.right;	
-					if(curr.data>pre.data){
+					if(curr.data.compareTo(pre.data)>0){
 						pre.right=address;
 					}else{
 						pre.left=address;
@@ -140,7 +132,7 @@ class BST
 				
 				return data+" deleted successfully.";
 
-			}else{	// data has 2 child.
+			}else{	// Node has 2 child.
 
 				Node nextRoot=null,preRoot=curr;
 				nextRoot=curr.left;
@@ -162,7 +154,7 @@ class BST
 	}
 
 	// Calculate Height of BST using recursive method.
-	public int calculateHeight(BST.Node root){
+	public int calculateHeight(Node root){
 		if(root==null){
 			return 0;
 		}
@@ -172,7 +164,7 @@ class BST
 
 	public static void main(String arg[])
 	{
-		BST bst=new BST();
+		BST<Integer> bst=new BST<>();
 		Scanner sc=new Scanner(System.in);
 
 		while(true){
