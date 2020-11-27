@@ -1,12 +1,12 @@
 import java.util.*;
 
 public class LinkedList<T> {
-	Node head = null;
+	private Node<T> head = null;
 
 	// LinkedList stucture
-	class Node {
+	private static class Node<T> {
 		T data;
-		Node next;
+		Node<T> next;
 
 		Node(T data) {
 			this.data = data;
@@ -16,11 +16,11 @@ public class LinkedList<T> {
 
 	// Add data last in linked list.
 	public void addLast(T data) {
-		Node newNode = new Node(data);
+		Node<T> newNode = new Node<T>(data);
 		if (head == null) {
 			head = newNode;
 		} else {
-			Node q = head;
+			Node<T> q = head;
 			while (q.next != null)
 				q = q.next;
 			q.next = newNode;
@@ -30,7 +30,7 @@ public class LinkedList<T> {
 
 	// Add data first in linked list.
 	public void addFirst(T data) {
-		Node newNode = new Node(data);
+		Node<T> newNode = new Node<T>(data);
 		if (head == null) {
 			head = newNode;
 		} else {
@@ -45,7 +45,7 @@ public class LinkedList<T> {
 		if (head == null) {
 			System.out.println("Linked list is empty.");
 		} else {
-			Node q = head;
+			Node<T> q = head;
 			int i;
 			for (i = 0; q != null && i < index; i++) {
 				q = q.next;
@@ -64,7 +64,7 @@ public class LinkedList<T> {
 		if (head == null) {
 			System.out.println("Linked list is empty.");
 		} else {
-			Node q = head;
+			Node<T> q = head;
 			while (q != null) {
 				if (q.data.equals(oldData))
 					q.data = newData;
@@ -79,7 +79,7 @@ public class LinkedList<T> {
 		if (head == null) {
 			System.out.println("Linked list is empty.");
 		} else {
-			Node q = head, pre = head;
+			Node<T> q = head, pre = head;
 			int i;
 
 			for (i = 1; q != null && i < index; i++) {
@@ -99,25 +99,27 @@ public class LinkedList<T> {
 	}
 
 	// Show the linked list.
-	public void display() {
+	@Override
+	public String toString() {
 		if (head == null) {
-			System.out.println("Linked list is empty.");
-		} else {
-			Node q = head;
-			System.out.println("LinkedList : ");
-			while (q != null) {
-				System.out.print(q.data + " ");
-				q = q.next;
-			}
-			System.out.println();
+			return "Linked list is empty.";
 		}
+		
+		Node<T> q = head;
+		String list="";
+		while (q != null) {
+			list += q.data + " -> ";
+			q = q.next;
+		}
+		list += "null";
+		return list;
 	}
 
 	public void reverse() {
 		if (head == null) {
 			System.out.println("Linked list is empty.");
 		} else {
-			Node curr = head, next = null, pre = null;
+			Node<T> curr = head, next = null, pre = null;
 			while (curr != null) {
 				next = curr.next;
 				curr.next = pre;
@@ -130,7 +132,7 @@ public class LinkedList<T> {
 	}
 
 	public static void main(String arg[]) {
-		LinkedList ll = new LinkedList();
+		LinkedList<String> ll = new LinkedList<>();
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
@@ -175,7 +177,7 @@ public class LinkedList<T> {
 					ll.reverse();
 					break;
 				case 7:
-					ll.display();
+					System.out.println(ll);
 					break;
 				case 8:
 					sc.close();

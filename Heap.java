@@ -14,7 +14,7 @@ public class Heap {
 			max = left;
 		if (right < len && arr[max] < arr[right])
 			max = right;
-
+		
 		if (max != i) {
 			swap(arr, max, i);
 
@@ -91,5 +91,15 @@ public class Heap {
 		heapify(arr, 0, len);
 
 		return Arrays.copyOfRange(arr, 0, arr.length - 1);
+	}
+
+	public static void main(String[] args) {
+		int[] arr={2,35,5,8,4,6,1};
+		System.out.println(Arrays.toString(arr));
+		heapify(arr);
+		System.out.println(Arrays.toString(arr));
+		heapSort(arr);
+		System.out.println(Arrays.toString(arr));
+
 	}
 }

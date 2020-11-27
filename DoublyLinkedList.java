@@ -1,11 +1,11 @@
 import java.util.*;
 
-class DoublyLinkedList 
+public class DoublyLinkedList 
 {
-	Node head,tail;
+	private Node head,tail;
 
 	//DoublyLinkedList Structure
-	class Node{
+	private static class Node{
 		int data;
 		Node next,prev;
 		Node(int data){

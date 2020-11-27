@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class BST<T extends Comparable<? super T>> {
-	Node root = null;
+	private Node root = null;
 
 	//Structure of node.
-	public class Node {
+	private static class Node<T extends Comparable<? super T>> {
 		T data;
 		Node left, right;
 

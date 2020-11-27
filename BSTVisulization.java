@@ -4,12 +4,12 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class BSTVisulization extends JFrame implements ActionListener,KeyListener
+public class BSTVisulization extends JFrame implements ActionListener,KeyListener
 {
-	Node root;
+	private Node root;
 
 	//Node Structure
-	class Node{
+	private static class Node{
 		JLabel data;
 		Node left;
 		Node right;
@@ -29,7 +29,7 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 	}
 
 	//Points structure
-	class Points{
+	private static class Points{
 		int x1=0,x2=0,y2=0,y1=0;
 		Points(int x1,int y1,int x2,int y2){
 			this.x1=x1;
@@ -99,7 +99,7 @@ class BSTVisulization extends JFrame implements ActionListener,KeyListener
 		//Delete Button
 		btnDelete=new JButton("Delete");
 		btnDelete.setFont(new Font("Arial",Font.BOLD,20));
-		btnDelete.setBounds(30,20,150,30);
+		btnDelete.setBounds(size.width-130,60,100,30);
 		btnDelete.addActionListener(this);
 		add(btnDelete);
 
